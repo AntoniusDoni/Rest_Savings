@@ -1,21 +1,11 @@
-version: '3.7'
+version: '3.1'
 services:
-  postgres:
-    image: postgres:13.2
-    restart: unless-stopped
+  db:
+    image: postgres
+    restart: always
     environment:
-      POSTGRES_DB: savings
-      POSTGRES_USER: postgres
+      POSTGRES_USER: postges
       POSTGRES_PASSWORD: password
-      PGDATA: /var/lib/postgresql/data/pgdata
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: savings
     volumes:
-      -
-        type: bind
-        source: /tmp/postgres-data
-        target: /var/lib/postgresql/data
-    networks:
-      - reference
-networks:
-  reference:
+       - ./data:/var/lib/postgresql/data
