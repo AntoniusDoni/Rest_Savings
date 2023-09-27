@@ -40,3 +40,15 @@ func (rep *Repository) GetBalace(no_rek string, trx *models.Trasaction) error {
 	close.Close()
 	return err
 }
+
+func (rep *Repository) GetListTransaction(no_rek string) ([]models.Trasaction, error) {
+	db, _ := rep.Gormdb.GetInstance()
+	var trx []models.Trasaction
+	err := db.Where("no_rek=?", no_rek).Find(&trx).Error
+	if err != nil {
+		return nil, err
+	}
+	close, _ := db.DB()
+	close.Close()
+	return trx, err
+}

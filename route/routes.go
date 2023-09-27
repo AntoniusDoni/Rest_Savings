@@ -16,6 +16,7 @@ func Routes(app *fiber.App, services *services.Services) {
 
 	route.Post("/daftar", handlers.CreateAccount)
 	route.Get("/saldo/:no_rekening", handlers.GetBalaceAccount)
+	route.Get("/mutasi/:no_rekening", handlers.GetListTransaction)
 	auten := &utils.AuthorizeUser{
 		Ser: services,
 	}

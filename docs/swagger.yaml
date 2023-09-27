@@ -79,6 +79,32 @@ paths:
           schema:
             $ref: '#/definitions/response.CreateAccountResponse'
       summary: create Account
+  /mutasi/{no_rekening}:
+    get:
+      consumes:
+      - application/json
+      description: Get List of Transaction Account
+      parameters:
+      - description: no_rekening
+        in: path
+        name: no_rekening
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: Province Not Found
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Get List Transaction Account
   /saldo/{no_rekening}:
     get:
       consumes:

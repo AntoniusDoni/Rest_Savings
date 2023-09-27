@@ -22,7 +22,7 @@ type Trasaction struct {
 
 func (trx *Trasaction) BeforeCreate(tx *gorm.DB) (err error) {
 	trx.Id = uuid.New().String()
-	currentTime := time.Now()
+	currentTime := time.Now().UTC()
 	trx.TrasactionDate = datatypes.Date(currentTime)
 	return
 }

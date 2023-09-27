@@ -61,6 +61,46 @@ const docTemplate = `{
                 }
             }
         },
+        "/mutasi/{no_rekening}": {
+            "get": {
+                "description": "Get List of Transaction Account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get List Transaction Account",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "no_rekening",
+                        "name": "no_rekening",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Province Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/saldo/{no_rekening}": {
             "get": {
                 "description": "Get Detail of Saldo",

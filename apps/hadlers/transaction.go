@@ -113,3 +113,42 @@ func (hand *Handler) GetBalaceAccount(ctx *fiber.Ctx) error {
 
 	return ctx.Status(status).JSON(res)
 }
+
+// Mutasi godoc
+//
+//	@Summary		Get List Transaction Account
+//	@Description	Get List of Transaction Account
+//	@Accept			json
+//	@Produce		json
+//	@Param			no_rekening	path		string	false	"no_rekening"
+//
+//		@Success		200		{object}  response.Response  "OK"
+//		@Failure		400		{object}  response.Response  "Bad Request"
+//	 @Failure		404		{object}  response.Response  "Province Not Found"
+//
+// @Router /mutasi/{no_rekening} [Get]
+func (hand *Handler) GetListTransaction(ctx *fiber.Ctx) error {
+	no_rekening := ctx.Params("no_rekening")
+	res := response.Response{}
+	status := fiber.StatusOK
+
+	result, err := hand.Ser.Repository.GetListTransaction(no_rekening)
+	if err == nil {
+		bodyRes := []response.GetListTransaction{}
+		layout := "2006-01-02 15:04:05"
+		for _, attr := range result {
+			bodyRes = append(bodyRes, response.GetListTransaction{
+				TransactionTime: attr.CreatedAt.Format(layout),
+				TransactionCode: attr.TransactionCode,
+				Balance:         attr.Nominal,
+			})
+		}
+		res.Body = bodyRes
+	} else {
+		res.Message = "Gagal"
+		status = fiber.StatusBadRequest
+		res.Body = "No Rekening tidak di temukan"
+	}
+
+	return ctx.Status(status).JSON(res)
+}
